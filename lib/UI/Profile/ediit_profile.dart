@@ -36,7 +36,7 @@ class EditProfile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
-            spacing: 20,
+            // spacing: 20,
             children: [
               TextFormField(
                 keyboardType: TextInputType.emailAddress,

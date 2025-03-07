@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gaza_pharmacy/UI/Home%20Page/payment.dart';
 import 'package:gaza_pharmacy/Component/color.dart';
+import 'package:get/get.dart';
+
+import '../../controller/cart.dart';
+import '../../controller/product.dart';
+import '../../model/cart.dart';
+import '../../model/product.dart';
 
 
 class Cart extends StatefulWidget {
@@ -16,6 +22,8 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+            final controller = Get.find<CartController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -34,143 +42,26 @@ class _CartState extends State<Cart> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => Container(
-                        width: double.infinity,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            width: 3,
-                            color: primaryColor,
+             StreamBuilder<List<Map<String, dynamic>>>(
+        stream: controller.getCartProducts(),
+        builder: (context, snapshot) {
+               if (snapshot.hasError) return Text('No Items in Cart');
+          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+
+                  return ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                                      final item = snapshot.data![index];
+              final product = item['product'] as ProductModel;
+              final cartItem = item['cartItem'] as CartItem;
+                      return  cartProducts(item: item,product: product,cartItem: cartItem,);},
+                      separatorBuilder: (context, index) => SizedBox(
+                            height: 20,
                           ),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                "assets/image/comtrex-tabs-11709223596-removebg-preview (1).png",
-                                width: 90,
-                                height: 70,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                ),
-                                Text("تلفاست "),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "9 ش / ",
-                                      style: TextStyle(
-                                        color: primaryColor,
-                                      ),
-                                    ),
-                                    Text(
-                                      " 20 قرص",
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(20)),
-                                  ),
-                                  child: Center(
-                                      child: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              itemcount--;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.delete_outline_sharp,
-                                            color: Colors.white,
-                                          ))),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
-                                        child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                number--;
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.minimize,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width:10,
-                                      ),
-                                      Text(
-                                        "${number}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
-                                        child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                number++;
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: 20,
-                      ),
-                  itemCount: itemcount),
+                      itemCount: snapshot.data!.length);
+                }
+              ),
               SizedBox(
                 height:20,
               ),
@@ -283,5 +174,144 @@ class _CartState extends State<Cart> {
         ),
       ),
     );
+  }
+
+
+}
+class cartProducts extends StatelessWidget {
+  const cartProducts({super.key, required this.cartItem,required this.item,required this.product});
+final dynamic item;
+final dynamic product;
+final dynamic cartItem;
+
+  @override
+  Widget build(BuildContext context) {
+        final controller = Get.find<CartController>();
+
+    return Container(
+                          width: double.infinity,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              width: 3,
+                              color: primaryColor,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.network(
+                                  product.image,
+                                  width: 90,
+                                  height: 70,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                  ),
+                                  Text(product.name),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '\$${product.price.toStringAsFixed(2)}',
+                                        style: TextStyle(
+                                          color: primaryColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        " 20 قرص",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(20)),
+                                    ),
+                                    child: Center(
+                                        child: IconButton(
+                                             onPressed: () => controller.updateCartQuantity(
+                        product.id!,
+                        cartItem.quantity = 0,
+                      ),
+                                            icon: Icon(
+                                              Icons.delete_outline_sharp,
+                                              color: Colors.white,
+                                            ))),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          ),
+                                          child: IconButton(
+                                              onPressed: ()=> controller.updateCartQuantity(
+                        product.id!,
+                        cartItem.quantity-= 1),
+                                              icon: Icon(
+                                                Icons.minimize,
+                                                color: Colors.white,
+                                              )),
+                                        ),
+                                        SizedBox(
+                                          width:10,
+                                        ),
+                                        Text(
+                                          "${cartItem.quantity}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          ),
+                                          child: IconButton(
+                                              onPressed: ()=>controller.updateCartQuantity(
+                        product.id!,
+                        cartItem.quantity += 1,),
+                                              icon: Icon(
+                                                Icons.add,
+                                                color: Colors.white,
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
   }
 }

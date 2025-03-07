@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gaza_pharmacy/UI/Home%20Page/home.dart';
 import 'package:gaza_pharmacy/UI/Product/product.dart';
+import 'package:get/get.dart';
+
+import '../../controller/categore_controller.dart';
+import '../../model/category.dart';
 
 class Section extends StatelessWidget {
   const Section({super.key});
 
   @override
   Widget build(BuildContext context) {
+        final categoryController = Get.find<CategoreController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -18,181 +25,19 @@ class Section extends StatelessWidget {
           ),
         ),
       ),
-      body: Wrap(
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: 10,
-          children: [
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Product()));
-              },
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white70,
-                    radius: 50,
-                    child: Image.asset(
-                      "assets/image/comtrex-tabs-11709223596-removebg-preview (1).png",
-                      fit: BoxFit.fill,
-                    ),
+      body: StreamBuilder<List<CategoryModel>>(
+        stream: categoryController.getCategorieItems(),
+        builder: (context, snapshot) {
+                         if (snapshot.hasError) return Text('No Items in Cart');
+          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+          print(snapshot.data);
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context,int index)=> CategoryItem(category: snapshot.data![index],),);
+                    }
                   ),
-                  SizedBox(
-                    height:  10,
-                  ),
-                  Text(
-                    "فيتامينات",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Product()));
-              },
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white70,
-                    radius: 50,
-                    child: Image.asset(
-                      "assets/image/comtrex-tabs-11709223596-removebg-preview (1).png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height:  10,
-                  ),
-                  Text(
-                    "فيتامينات",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Product()));
-              },
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white70,
-                    radius: 50,
-                    child: Image.asset(
-                      "assets/image/comtrex-tabs-11709223596-removebg-preview (1).png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height:  10,
-                  ),
-                  Text(
-                    "فيتامينات",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Product()));
-              },
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white70,
-                    radius: 50,
-                    child: Image.asset(
-                      "assets/image/comtrex-tabs-11709223596-removebg-preview (1).png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height:  10,
-                  ),
-                  Text(
-                    "فيتامينات",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Product()));
-              },
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white70,
-                    radius: 50,
-                    child: Image.asset(
-                      "assets/image/comtrex-tabs-11709223596-removebg-preview (1).png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "فيتامينات",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Product()));
-              },
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white70,
-                    radius: 50,
-                    child: Image.asset(
-                      "assets/image/comtrex-tabs-11709223596-removebg-preview (1).png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height:  10,
-                  ),
-                  Text(
-                    "فيتامينات",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-          ]),
     );
   }
 }

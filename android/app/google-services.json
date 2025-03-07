@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "822311953206",
+    "project_id": "pharmacygaza",
+    "storage_bucket": "pharmacygaza.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822311953206:android:26b4909be4b1fee288c997",
+        "android_client_info": {
+          "package_name": "com.example.pharmacy_gaza"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDodNmi0_jxu6Gz_BTpKqpYdj1O34BVVtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
