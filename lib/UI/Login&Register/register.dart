@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:gaza_pharmacy/UI/Login&Register/login.dart';
+import 'package:get/get.dart';
 import '../../Component/buttom.dart';
+import '../../controller/auth.dart';
 import '../Home Page/bottombat.dart';
 import '../../Component/color.dart';
 
 class Register_Screen extends StatelessWidget {
-  const Register_Screen({super.key});
-
+   Register_Screen({super.key});
+  final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+        final controller = Get.put(AuthController());
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -37,6 +45,7 @@ class Register_Screen extends StatelessWidget {
         ),
       ),
       body: Form(
+        key: _formKey,
           child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Center(
@@ -45,10 +54,18 @@ class Register_Screen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                                    controller: emailController,
+
                   keyboardType: TextInputType.emailAddress,
+                   validator: (value) {
+                    if (value!.isEmpty) return 'Required';
+                    if (!value.isEmail) return 'Invalid email';
+                    return null;
+                  },
                   decoration: const InputDecoration(
                     suffix: Icon(Icons.email_outlined),
-                    labelText: ' اسم المستخدم',
+                    labelText: ' الاميل',
+                    
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -56,6 +73,8 @@ class Register_Screen extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                                    controller: phoneController,
+
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
                     suffix: Icon(Icons.phone_in_talk),
@@ -68,6 +87,8 @@ class Register_Screen extends StatelessWidget {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.visiblePassword,
+                                    controller: passwordController,
+
                   obscureText: true,
                   decoration: const InputDecoration(
                     suffix: Icon(Icons.lock_outline),
@@ -75,27 +96,45 @@ class Register_Screen extends StatelessWidget {
                     labelText: 'كلمة المرور',
                     border: OutlineInputBorder(),
                   ),
+                      validator: (value) {
+                    if (value!.isEmpty) return 'Required';
+                    if (value.length < 6) return 'Minimum 6 characters';
+                    return null;
+                  },
                 ),
                  SizedBox(
                   height: 20,
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    suffix: Icon(Icons.lock_outline),
-                    prefix: Icon(Icons.remove_red_eye_outlined),
-                    labelText: 'ناكبد كلمة المرور',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
+                // TextFormField(
+                //   keyboardType: TextInputType.visiblePassword,
+                //   obscureText: true,
+                //   decoration: const InputDecoration(
+                //     suffix: Icon(Icons.lock_outline),
+                //     prefix: Icon(Icons.remove_red_eye_outlined),
+                //     labelText: 'ناكبد كلمة المرور',
+                //     border: OutlineInputBorder(),
+                //   ),
+                // ),
                  SizedBox(
                   height: 20,
                 ),
-                BottomComponent(
-                  name: Bottombar(),
-                  title: 'انشاء حساب',
-                ),
+              Obx(() => controller.isLoading.value
+                    ? CircularProgressIndicator(): GestureDetector(
+                      onTap: ()async {
+                           if (_formKey.currentState!.validate()) {
+                            await controller.signUp(
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
+                              name: nameController.text.trim(),
+                              phone: phoneController.text.trim(),
+                            );}
+                      },
+                      child: BottomComponent(
+                                        name: Bottombar(),
+                                        title: 'انشاء حساب',
+                                        
+                                      ),
+                    )) ,
                  SizedBox(
                   height: 40,
                 ),
@@ -108,7 +147,7 @@ class Register_Screen extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const Login_Screen()));
+                            builder: (context) =>  Login_Screen()));
                       },
                       child: const Text(
                         "تسجيل الدخول",

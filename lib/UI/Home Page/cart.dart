@@ -7,6 +7,7 @@ import '../../controller/cart.dart';
 import '../../controller/product.dart';
 import '../../model/cart.dart';
 import '../../model/product.dart';
+import '../../stripe_payment/stripe_mangment.dart';
 
 
 class Cart extends StatefulWidget {
@@ -17,8 +18,8 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  int itemcount = 2;
-  int number = 6;
+int totalAmount=0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,142 +37,149 @@ class _CartState extends State<Cart> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-             StreamBuilder<List<Map<String, dynamic>>>(
-        stream: controller.getCartProducts(),
-        builder: (context, snapshot) {
-               if (snapshot.hasError) return Text('No Items in Cart');
-          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+      body: StreamBuilder<List<Map<String, dynamic>>>(
+       stream: controller.getCartProducts(),
+            builder: (context, snapshot) {
+                   if (snapshot.hasError) return Center(child: Text('No Items in Cart'));
+              if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                            controller.calculateTotal(snapshot.data!);
 
-                  return ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                                      final item = snapshot.data![index];
-              final product = item['product'] as ProductModel;
-              final cartItem = item['cartItem'] as CartItem;
-                      return  cartProducts(item: item,product: product,cartItem: cartItem,);},
-                      separatorBuilder: (context, index) => SizedBox(
-                            height: 20,
-                          ),
-                      itemCount: snapshot.data!.length);
-                }
-              ),
-              SizedBox(
-                height:20,
-              ),
-              Text(
-                "تفاصيل الطلب",
-                style: TextStyle(color: primaryColor, fontSize: 18),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "سعر المنتجات",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                  ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                                          final item = snapshot.data![index];
+                  final product = item['product'] as ProductModel;
+                  final cartItem = item['cartItem'] as CartItem;
+                                         
+          
+                          return  cartProducts(item: item,product: product,cartItem: cartItem,);},
+                          separatorBuilder: (context, index) => SizedBox(
+                                height: 20,
+                              ),
+                          itemCount: snapshot.data!.length),
+              
+                  SizedBox(
+                    height:20,
                   ),
-                  Spacer(),
                   Text(
-                    "55 ش ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                    "تفاصيل الطلب",
+                    style: TextStyle(color: primaryColor, fontSize: 18),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "تكلفة التوصيل",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                  SizedBox(
+                    height: 16,
                   ),
-                  Spacer(),
-                  Text(
-                    "55 ش ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        "سعر المنتجات",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        controller.total.toStringAsFixed(2),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Divider(
-                indent: 5,
-                thickness: 2,
-                endIndent: 10,
-                color: Colors.grey,
-                height: 5,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "المبلغ الاجمالي",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "تكلفة التوصيل",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        "55 ش ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Divider(
+                    indent: 5,
+                    thickness: 2,
+                    endIndent: 10,
+                    color: Colors.grey,
+                    height: 5,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "المبلغ الاجمالي",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                        ),
+                      ),
+                      Spacer(),
+                    Text(
+            controller.total.toStringAsFixed(2),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                        ),
+                      ),
+                      // Obx(() =>   ),
+                     
+                    ],
+                  ),
+                  SizedBox(
+                    height:  20,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
                       color: primaryColor,
                     ),
-                  ),
-                  Spacer(),
-                  Text(
-                    "55 ش ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: MaterialButton(
+                      onPressed: () async{
+                      await  PaymentManger.mackPayment(controller.total.toInt(), 'usd');
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) => const Payment()));
+                      },
+                      child: const Text(
+                        'الانتقال الى الدفع',
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height:  20,
-              ),
-              Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3),
-                  color: primaryColor,
-                ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Payment()));
-                  },
-                  child: const Text(
-                    'الانتقال الى الدفع',
-                    style: TextStyle(color: Colors.white, fontSize: 17),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        }
       ),
     );
   }
@@ -233,6 +241,7 @@ final dynamic cartItem;
                                   ),
                                 ],
                               ),
+                              Text('${product.price *cartItem.quantity}' ),
                               Spacer(),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,

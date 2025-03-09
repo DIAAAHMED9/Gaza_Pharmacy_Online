@@ -6,6 +6,20 @@ import '../model/product.dart';
 
 class CartController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  double total = 0.0; // جعلها تفاعلية باستخدام Rx
+
+ void calculateTotal(List<Map<String, dynamic>> cartProducts) {
+    double newTotal = 0.0;
+    for (var item in cartProducts) {
+      final product = item['product'] as ProductModel;
+      final cartItem = item['cartItem'] as CartItem;
+      newTotal += product.price * cartItem.quantity;
+      update();
+      print('product.price ${product.price} cartItem.quantity ${cartItem.quantity} newTotal $newTotal');
+    }
+    total = newTotal;
+    update();
+  }
 
   // Add to cart with quantity management
   Future<void> addToCart(String productId) async {

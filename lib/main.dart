@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:gaza_pharmacy/Component/color.dart';
 import 'package:gaza_pharmacy/UI/Home%20Page/cart.dart';
@@ -15,6 +16,7 @@ import 'controller/categore_controller.dart';
 import 'controller/product.dart';
 import 'firebase_options.dart';
 import 'model/category.dart';
+import 'stripe_payment/strpe_keys.dart';
 
 
 
@@ -24,6 +26,7 @@ void main() async {
 await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
+Stripe.publishableKey = StripeKeys.publishableKey;
   Get.put(ProductController());
   Get.put(CartController());
     Get.put(CategoreController());
