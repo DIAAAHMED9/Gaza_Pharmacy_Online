@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gaza_pharmacy/model/cart.dart';
 import 'package:get/get.dart';
-
 import '../model/product.dart';
 
 class ProductController extends GetxController {

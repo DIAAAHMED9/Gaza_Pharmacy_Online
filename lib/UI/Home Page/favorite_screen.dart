@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaza_pharmacy/model/product.dart';
 import 'package:get/get.dart';
-
 import '../../controller/product.dart';
-import '../Product/product.dart';
 
 class LovedScreen extends StatelessWidget {
   @override

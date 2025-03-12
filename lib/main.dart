@@ -2,34 +2,28 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-
 import 'package:gaza_pharmacy/Component/color.dart';
-import 'package:gaza_pharmacy/UI/Home%20Page/cart.dart';
 import 'package:gaza_pharmacy/UI/Home%20Page/home.dart';
-import 'package:gaza_pharmacy/UI/Login&Register/start_screen.dart';
+import 'package:gaza_pharmacy/UI/Order/Canceld%20Order.dart';
+import 'package:gaza_pharmacy/UI/Order/complete_order.dart';
+import 'package:gaza_pharmacy/UI/Profile/profile.dart';
 import 'package:gaza_pharmacy/UI/splash_Screen.dart';
 import 'package:get/get.dart';
-
-import 'UI/Home Page/bottombat.dart';
 import 'controller/cart.dart';
 import 'controller/categore_controller.dart';
 import 'controller/product.dart';
 import 'firebase_options.dart';
-import 'model/category.dart';
 import 'stripe_payment/strpe_keys.dart';
 
-
-
-
 void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-Stripe.publishableKey = StripeKeys.publishableKey;
+  );
+  Stripe.publishableKey = StripeKeys.publishableKey;
   Get.put(ProductController());
   Get.put(CartController());
-    Get.put(CategoreController());
+  Get.put(CategoreController());
   // Get.put(ProfileController());
   runApp(const MyApp());
 }
@@ -64,7 +58,7 @@ class MyApp extends StatelessWidget {
               onError: Colors.red,
               surface: Colors.white,
               onSurface: Colors.grey)),
-      home: Bottombar(),
+      home: SplashScreen(),
     );
   }
 }

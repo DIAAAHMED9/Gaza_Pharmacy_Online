@@ -22,9 +22,12 @@ class Profile extends StatelessWidget {
                 width: 100,
                 height: 100,
                 child: CircleAvatar(
-                  child: Image.asset(
-                    "assets/image/On-bording.png",
-                  ),
+                  backgroundImage: AssetImage("assets/image/pexels-pixabay-220453.jpg"),
+                  // child: Image.network(
+                  //
+                  //
+                  //
+                  // ),
                 ),
               ),
               Text(
@@ -91,7 +94,7 @@ class Profile extends StatelessWidget {
                       ),
                       Spacer(),
                       Icon(
-                        Icons.person_outline_rounded,
+                        Icons.key,
                         color: Colors.grey,
                       ),
                     ],

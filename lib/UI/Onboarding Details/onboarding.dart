@@ -118,7 +118,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           currentIndex == controller.items.length - 1
               ? "تسجيل الدخول"
               : "التالي",
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
     );

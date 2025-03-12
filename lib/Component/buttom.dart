@@ -26,7 +26,7 @@ class BottomComponent extends StatelessWidget {
         },
         child: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 17),
+          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -94,7 +94,7 @@ class Canceld_order extends StatelessWidget {
 
                       child: Container(
                         width: double.infinity,
-                        height: 130,
+                        height: 170,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(

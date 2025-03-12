@@ -79,120 +79,118 @@ class CompleteOrder extends StatelessWidget {
                 ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => Container(
-                          width: double.infinity,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Colors.lightBlueAccent,
+                    itemBuilder: (context, index) =>  Container(
+                      width: double.infinity,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.lightBlueAccent,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "عدد المنتجات",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  "5",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Spacer(),
+                                Text(
+                                  "1 , اكتوبر 2024",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 13),
+                                ),
+                              ],
                             ),
                           ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "عدد المنتجات",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
-                                    ),
-                                    Text(
-                                      "5",
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Text(
-                                      "1 , اكتوبر 2024",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 13),
-                                    ),
-                                  ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "عالمبلغ الاجمالي",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "عالمبلغ الاجمالي",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
-                                    ),
-                                    Text(
-                                      "120 ش",
-                                      style: TextStyle(
-                                        color: primaryColor,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    MaterialButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const OrderDetails()));
-                                      },
-                                      child: Container(
-                                        width: 100,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          border:
-                                              Border.all(color: primaryColor),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "عرض تفاصيل",
-                                            style: TextStyle(
-                                                color: primaryColor,
-                                                fontSize: 13),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                SizedBox(
+                                  width: 30,
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "عنوان التوصيل",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
-                                    ),
-                                    Text(
-                                      "خانيونس - البلد -مسجد الاسلام",
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                  ],
+                                Text(
+                                  "120 ش",
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Spacer(),
+                                MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) => const OrderDetails()));
+                                  },
+                                  child: Container(
+                                    width: 100,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(50),
+                                      border:
+                                      Border.all(color: primaryColor),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "عرض تفاصيل",
+                                        style: TextStyle(
+                                            color: primaryColor,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "عنوان التوصيل",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  "خانيونس - البلد -مسجد الاسلام",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     separatorBuilder: (context, index) => const SizedBox(
                           height: 20,
                         ),

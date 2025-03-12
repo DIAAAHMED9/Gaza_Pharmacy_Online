@@ -52,17 +52,17 @@ class Payment extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height:  20,
+                height: 20,
               ),
               Divider(
                 indent: 5,
                 thickness: 1,
                 endIndent: 10,
                 color: Colors.grey,
-                height:  5,
+                height: 5,
               ),
               SizedBox(
-                height:   20,
+                height: 20,
               ),
               Text(
                 "ميعاد التوصيل",
@@ -104,10 +104,10 @@ class Payment extends StatelessWidget {
                 thickness: 1,
                 endIndent: 10,
                 color: Colors.grey,
-                height:  5,
+                height: 5,
               ),
               SizedBox(
-                height:  20,
+                height: 20,
               ),
               Text(
                 "تفاصيل الطلب",
@@ -136,7 +136,7 @@ class Payment extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height:  16,
+                height: 16,
               ),
               Row(
                 children: [
@@ -158,7 +158,7 @@ class Payment extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height:  20,
+                height: 20,
               ),
               Divider(
                 indent: 5,
@@ -192,11 +192,11 @@ class Payment extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height:  20,
+                height: 20,
               ),
               Container(
                 width: double.infinity,
-                height:  50,
+                height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(3),
                   color: primaryColor,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaza_pharmacy/UI/Product/product_details.dart';
 import 'package:get/get.dart';
-
-import '../../Component/color.dart';
 import '../../controller/product.dart';
 import '../../model/product.dart';
 import '../Home Page/home.dart';
