@@ -1,0 +1,2 @@
+C:/Users/diahk/StudioProjects/pharmacy_gaza/android/app/.cxx/Debug/724a4g67/x86/CMakeFiles/edit_cache.dir
+C:/Users/diahk/StudioProjects/pharmacy_gaza/android/app/.cxx/Debug/724a4g67/x86/CMakeFiles/rebuild_cache.dir
