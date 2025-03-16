@@ -1,0 +1,2 @@
+C:/Users/diahk/StudioProjects/Gaza_Pharmacy_Online/android/app/.cxx/RelWithDebInfo/431i3v5l/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/diahk/StudioProjects/Gaza_Pharmacy_Online/android/app/.cxx/RelWithDebInfo/431i3v5l/arm64-v8a/CMakeFiles/rebuild_cache.dir

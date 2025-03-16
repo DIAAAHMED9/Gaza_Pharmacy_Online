@@ -42,7 +42,7 @@ class Login_Screen extends StatelessWidget {
                           return null;
                         },
                         decoration: const InputDecoration(
-                          suffix: Icon(Icons.email_outlined),
+                          prefix: Icon(Icons.email_outlined),
                           labelText: ' الاميل',
                           border: OutlineInputBorder(),
                         ),
@@ -55,8 +55,8 @@ class Login_Screen extends StatelessWidget {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         decoration: const InputDecoration(
-                          suffix: Icon(Icons.lock_outline),
-                          prefix: Icon(Icons.remove_red_eye_outlined),
+                          prefix: Icon(Icons.lock_outline),
+                          suffix: Icon(Icons.remove_red_eye_outlined),
                           labelText: 'كلمة المرور',
                           border: OutlineInputBorder(),
                         ),
