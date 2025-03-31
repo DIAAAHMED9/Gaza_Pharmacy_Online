@@ -25,7 +25,7 @@ class ProductModel {
       };
 
   factory ProductModel.fromJson(String docId,Map<String, dynamic> json) => ProductModel(
-        id: docId,  // Get ID from document reference
+        id: docId,  
         categoryId: json['categoriesId'],
         name: json['name'],
         image: json['image'],
