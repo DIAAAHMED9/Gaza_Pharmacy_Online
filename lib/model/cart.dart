@@ -11,12 +11,10 @@ class CartItem {
 
   Map<String, dynamic> toJson() => {
     'quantity': quantity,
-    // 'addedAt': addedAt.toIso8601String(),
   };
 
   factory CartItem.fromJson(String docId,Map<String, dynamic> json) => CartItem(
     productId:   json['productId'],
     quantity: json['quantity'],
-    // addedAt: DateTime.parse(json['addedAt'].toString()),
   );
 }
