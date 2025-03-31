@@ -7,7 +7,8 @@ class CategoryModel {
     required this.categoryId,
     required this.name,
     required this.image,
-  });
+  }
+);
 
   Map<String, dynamic> toJson() => {
     'name': name,
