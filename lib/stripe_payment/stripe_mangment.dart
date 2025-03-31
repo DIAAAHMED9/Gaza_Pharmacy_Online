@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-
 import 'strpe_keys.dart';
 
 abstract class PaymentManger{
@@ -28,7 +27,6 @@ static Future<String> _getClientSecret(String amount, String currency) async{
     headers: {
       'Authorization': 'Bearer ${StripeKeys.secretKey}',
       'Content-Type': 'application/x-www-form-urlencoded'
-     
     }
   
   ),
@@ -36,8 +34,6 @@ static Future<String> _getClientSecret(String amount, String currency) async{
     'amount': amount,
     'currency': currency,
   }
-  
   );
 return response.data['client_secret'];
-}
-}
+}}
