@@ -19,7 +19,8 @@ class OrderModel {
     required this.createdAt,
     this.address,
     this.paymentMethod,
-  });
+  }
+ );
 
   factory OrderModel.fromFirestore(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
