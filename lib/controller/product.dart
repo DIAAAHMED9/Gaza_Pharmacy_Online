@@ -47,7 +47,6 @@ class ProductController extends GetxController {
   // Toggle love status
   Future<void> toggleLove(String productId, bool isLoved) async {
     try {
-      print('productId $productId isLoved $isLoved');
       await _firestore.collection('products').doc(productId).update({'isLoved': isLoved});
       if (isLoved) {
         await _firestore.collection('loved').doc(productId).set({'productId': productId});
